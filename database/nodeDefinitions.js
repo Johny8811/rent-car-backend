@@ -25,11 +25,12 @@ const { nodeField, nodeInterface } = nodeDefinitions(
     },
     (obj) => {
         // GraphQLObjectType
+        console.log(obj);
         switch (obj.graphql) {
             case 'auto':
                 return carType; // GraphQLObjectType
             case 'motorka':
-                const bikeType = require('./types/bikeType');
+                const bikeType = require('./types/bikeType').default;
                 return bikeType;
             case 'dodavatel':
                 return contractorType;
