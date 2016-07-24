@@ -1,7 +1,7 @@
 /**
  * Created by Jan on 28.6.2016.
  */
- // toto je jednoduchy koment 
+ // tento koment bude zmeneny .... mal by sa commitnut na server
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import schema from './database/schema';
@@ -16,7 +16,7 @@ app.use('/graphql', graphqlHTTP({
         k: 3 // je tu kvoli polu "viewer", toto pole musi nieco vratit inak by vratilo null pre vsetky svoje dalsie polia
     },
     graphiql: true
-}))
+}));
 
 app.use('/kkt', (req,res) => {
     res.send("hello world");
