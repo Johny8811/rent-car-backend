@@ -1,7 +1,7 @@
 /**
  * Created by Jan on 28.6.2016.
  */
- // tento koment bude zmeneny .... mal by sa commitnut na server
+ // tento koment bude zmeneny .... mal by sa commitnut na server alkjasldfa;lsdfk;lakfsd
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import schema from './database/schema';
