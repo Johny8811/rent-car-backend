@@ -10,8 +10,8 @@
 6 silly lifecycle graphql-backend@1.0.0~prestart: no script for prestart, continuing
 7 info lifecycle graphql-backend@1.0.0~start: graphql-backend@1.0.0
 8 verbose lifecycle graphql-backend@1.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle graphql-backend@1.0.0~start: PATH: C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;C:\Users\Jan\Dropbox\Programovanie\JavaScript\Development\Projects\Graphql - Viewer\graphql - backend\node_modules\.bin;C:\Program Files\nodejs;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Users\Jan\AppData\Local\.meteor\;C:\Program Files\MongoDB\Server\3.0\bin;C:\Program Files\nodejs;C:\Program Files\PostgreSQL\9.6\bin;C:\Users\Jan\AppData\Roaming\npm;.;;.;;.;
-10 verbose lifecycle graphql-backend@1.0.0~start: CWD: C:\Users\Jan\Dropbox\Programovanie\JavaScript\Development\Projects\Graphql - Viewer\graphql - backend
+9 verbose lifecycle graphql-backend@1.0.0~start: PATH: C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;C:\Users\Jan\Dropbox\Programovanie\JavaScript\Projects\rent a car\rent-a-car-backend\node_modules\.bin;C:\Program Files\nodejs;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Users\Jan\AppData\Local\.meteor\;C:\Program Files\MongoDB\Server\3.0\bin;C:\Program Files\nodejs;C:\Program Files\PostgreSQL\9.6\bin;C:\Users\Jan\AppData\Roaming\npm;.;;.;
+10 verbose lifecycle graphql-backend@1.0.0~start: CWD: C:\Users\Jan\Dropbox\Programovanie\JavaScript\Projects\rent a car\rent-a-car-backend
 11 silly lifecycle graphql-backend@1.0.0~start: Args: [ '/d /s /c', 'babel-node server.js' ]
 12 silly lifecycle graphql-backend@1.0.0~start: Returned: code: 1  signal: null
 13 info lifecycle graphql-backend@1.0.0~start: Failed to exec start script
@@ -26,7 +26,7 @@
 14 verbose stack     at maybeClose (internal/child_process.js:852:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:215:5)
 15 verbose pkgid graphql-backend@1.0.0
-16 verbose cwd C:\Users\Jan\Dropbox\Programovanie\JavaScript\Development\Projects\Graphql - Viewer\graphql - backend
+16 verbose cwd C:\Users\Jan\Dropbox\Programovanie\JavaScript\Projects\rent a car\rent-a-car-backend
 17 error Windows_NT 6.2.9200
 18 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "run-script" "start"
 19 error node v6.3.0

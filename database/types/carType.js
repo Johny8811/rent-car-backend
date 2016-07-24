@@ -10,21 +10,29 @@ import {
     globalIdField
 } from 'graphql-relay';
 
+import contractorType from './contractorType';
+
+import { nodeInterface } from '../nodeDefinitions';
+
+// --------------------------- zmena zdroju z natvrdo napisanych dat na databazu
+import contractors from '../contractors';
+// ---------------------------
+
 const carType = new GraphQLObjectType({
-    name: "Car",
-    description: "This represent a car, ktore je kokotne a toto je dalsi kus kodu kt by sa tam mal pridat",
+    name: "CarType",
+    description: "Car",
     fields: () => ({
         id: globalIdField('carType'),
         contractor: {
             name: "Contractor",
             description: "Dodavatelia auta",
-            type: contractorConnection,
-            args: connectionArgs,
-            //resolve: (root) => contractors.find(con => con.id == root.id)
-            resolve: (root, args) => connectionFromArray(contractors, args)
+            type: contractorType,
+            resolve: (root) => contractors.find(con => con.mark == root.mark)
         },
         mark: { type: GraphQLString },
         power: { type: GraphQLString }
     }),
     interfaces:  [nodeInterface]
 });
+
+export default carType;

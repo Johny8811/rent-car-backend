@@ -14,8 +14,8 @@ import {
 import { nodeInterface } from '../nodeDefinitions';
 
 const bikeType = new GraphQLObjectType({
-    name: "Bike",
-    description: "This is a bike",
+    name: "BikeType",
+    description: "Bike",
     fields: {
         id: globalIdField('bikeType'),
         brand: { type: GraphQLString },
