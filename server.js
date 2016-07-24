@@ -1,6 +1,7 @@
 /**
  * Created by Jan on 28.6.2016.
  */
+ // toto je jednoduchy koment 
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import schema from './database/schema';
