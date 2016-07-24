@@ -74,7 +74,7 @@ import contractors from "./contractors";
 
 const carType = new GraphQLObjectType({
     name: "Car",
-    description: "This represent a car",
+    description: "This represent a car, ktore je kokotne a toto je dalsi kus kodu kt by sa tam mal pridat",
     fields: () => ({
         id: globalIdField('carType'),
         contractor: {
