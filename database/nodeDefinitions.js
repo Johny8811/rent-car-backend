@@ -6,7 +6,9 @@ import {
     fromGlobalId
 } from 'graphql-relay';
 
+import cars from './cars';
 import bikes from './bikes';
+import contractors from './contractors';
 
 const { nodeField, nodeInterface } = nodeDefinitions(
     (globalId) => {
