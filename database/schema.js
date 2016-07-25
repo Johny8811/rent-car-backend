@@ -8,6 +8,8 @@ import {
     GraphQLList
 } from 'graphql';
 
+import { nodeField } from './nodeDefinitions';
+
 import viewerType from './types/viewerType';
 
 const schema = new GraphQLSchema({
@@ -19,7 +21,8 @@ const schema = new GraphQLSchema({
                 resolve(root, args, context) {
                     return context;
                 }
-            }
+            },
+            node: nodeField
         }
     })
 });

@@ -3,10 +3,14 @@
  */
 import {
     GraphQLObjectType,
-    GraphQLList
+    GraphQLList,
 } from 'graphql';
 
-import { nodeField } from '../nodeDefinitions';
+import {
+    globalIdField
+} from 'graphql-relay';
+
+import { nodeInterface } from '../nodeDefinitions';
 
 import bikeType from './bikeType';
 import carType from './carType';
@@ -24,9 +28,10 @@ import contractors from '../contractors';
 // ---------------------------
 
 const viewerType = new GraphQLObjectType({
-    name: 'Viewer',
+    name: 'ViewerType',
     description: "Root field for Relay",
     fields: {
+        id: globalIdField('viewerType'),
         cars: {
             type: new GraphQLList(carType),
             description: "Cars List",
@@ -45,9 +50,9 @@ const viewerType = new GraphQLObjectType({
                 contractors,
                 args
             )
-        },
-        node: nodeField
-    }
+        }
+    },
+    interfaces:  [nodeInterface]
 });
 
 export default viewerType;

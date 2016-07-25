@@ -6,16 +6,22 @@ import {
     fromGlobalId
 } from 'graphql-relay';
 
+import { apiTypeToGraphQLType } from './utils';
+
 // --------------------------- zmena zdroju z natvrdo napisanych dat na databazu
 import cars from './cars';
 import bikes from './bikes';
 import contractors from './contractors';
 // ---------------------------
 
+
 const { nodeField, nodeInterface } = nodeDefinitions(
     (globalId) => {
         const { type, id } = fromGlobalId(globalId);
         switch (type) {
+            case 'viewerType':
+                //return _.find(cars, { 'id': id }); with lodash
+                return { graphql: 'viewer' };
             case 'carType':
                 //return _.find(cars, { 'id': id }); with lodash
                 return cars.find(c => c.id == id); // with array.find
@@ -27,17 +33,11 @@ const { nodeField, nodeInterface } = nodeDefinitions(
                 return contractors.find(b => b.id == id);
         }
     },
-    (obj) => {
-        // GraphQLObjectType
-        switch (obj.graphql) {
-            case 'auto':
-                return require('./types/carType').default;
-            case 'motorka':
-                return require('./types/bikeType').default;
-            case 'dodavatel':
-                return require('./types/contractorType').default;
-        }
+    (obj) =>
+    {
+        return apiTypeToGraphQLType(obj.graphql);
     }
+
 );
 
 export { nodeField, nodeInterface };
