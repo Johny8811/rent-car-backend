@@ -12,7 +12,7 @@ const app = express();
 app.use('/graphql', graphqlHTTP({
     schema: schema,
     context: {
-        k: 3 // je tu kvoli polu "viewer", toto pole musi nieco vratit inak by vratilo null pre vsetky svoje dalsie polia
+        k: 3 // je tu kvoli polu "viewer", toto pole musi nieco vratit inak by vratilo null pre vsetky svoje dalsie polia..
     },
     graphiql: true
 }));
