@@ -14,7 +14,6 @@ import bikes from './bikes';
 import contractors from './contractors';
 // ---------------------------
 
-
 const { nodeField, nodeInterface } = nodeDefinitions(
     (globalId) => {
         const { type, id } = fromGlobalId(globalId);

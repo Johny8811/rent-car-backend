@@ -8,22 +8,39 @@ import {
     GraphQLList
 } from 'graphql';
 
+// Query
+import viewerType from './types/viewerType';
 import { nodeField } from './nodeDefinitions';
 
-import viewerType from './types/viewerType';
+// Mutation
+import addCarMutation from './mutations/addCarMutation';
+import addBikeMutation from './mutations/addBikeMutation';
+import addContractorMutation from './mutations/addContractorMutation';
+
+const Query = new GraphQLObjectType({
+    name: 'RootQueryType',
+    fields: {
+        viewer: {
+            type: viewerType,
+            resolve(root, args, context) {
+                return context;
+            }
+        },
+        node: nodeField
+    }
+});
+
+const Mutation = new GraphQLObjectType({
+    name: 'RootMutation',
+    fields: {
+        addCar: addCarMutation,
+        addBike: addBikeMutation,
+        addContractors: addContractorMutation
+    }
+});
 
 const schema = new GraphQLSchema({
-    query: new GraphQLObjectType({
-        name: 'RootQueryType',
-        fields: {
-            viewer: {
-                type: viewerType,
-                resolve(root, args, context) {
-                    return context;
-                }
-            },
-            node: nodeField
-        }
-    })
+    query: Query,
+    mutation: Mutation
 });
 export default schema;

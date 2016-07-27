@@ -27,7 +27,9 @@ const carType = new GraphQLObjectType({
             name: "Contractor",
             description: "Dodavatelia auta",
             type: contractorType,
-            resolve: (root) => contractors.find(con => con.mark == root.mark)
+            resolve: (root) => {
+                return contractors.find(con => con.id == root.id)
+            }
         },
         mark: { type: GraphQLString },
         power: { type: GraphQLString }
