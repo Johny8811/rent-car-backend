@@ -3,8 +3,6 @@
  */
 import {
     connectionDefinitions,
-    connectionArgs,
-    connectionFromArray
 } from 'graphql-relay';
 
 import contractorType from '../contractorType';
@@ -12,4 +10,4 @@ import contractorType from '../contractorType';
 var {connectionType: contractorConnection } =
     connectionDefinitions({ name: "Contractor", nodeType: contractorType });
 
-export { contractorConnection, connectionArgs, connectionFromArray };
+export { contractorConnection };

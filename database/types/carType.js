@@ -3,7 +3,8 @@
  */
 import {
     GraphQLObjectType,
-    GraphQLString
+    GraphQLString,
+    GraphQLList
 } from 'graphql';
 
 import {
@@ -14,10 +15,6 @@ import contractorType from './contractorType';
 
 import { nodeInterface } from '../nodeDefinitions';
 
-// --------------------------- zmena zdroju z natvrdo napisanych dat na databazu
-import contractors from '../contractors';
-// ---------------------------
-
 const carType = new GraphQLObjectType({
     name: "CarType",
     description: "Car",
@@ -26,9 +23,9 @@ const carType = new GraphQLObjectType({
         contractor: {
             name: "Contractor",
             description: "Dodavatelia auta",
-            type: contractorType,
+            type: new GraphQLList(contractorType),
             resolve: (root) => {
-                return contractors.find(con => con.id == root.id)
+                return root.getContractors();
             }
         },
         mark: { type: GraphQLString },

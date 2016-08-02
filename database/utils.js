@@ -1,8 +1,27 @@
 /**
  * Created by Jan on 25.7.2016.
  */
+import {
+    fromGlobalId
+} from 'graphql-relay';
 
-const apiTypeToGraphQLType = (objType) => {
+import Data from './source/syncModels';
+
+const apiToGetDataFromTyepAndID = (globalId) => {
+    const { type, id } = fromGlobalId(globalId);
+    switch (type) {
+        case 'viewerType':
+            return { type: 'viewer' };
+        case 'carType':
+            return Data.models.car.findById(id);
+        case 'bikeType':
+            return Data.models.bike.findById(id);
+        case 'contractorType':
+            return Data.models.contractor.findById(id);
+    }
+};
+
+const apiToGetGraphQLObjectType = (objType) => {
     const {
         bikeType,
         carType,
@@ -22,4 +41,4 @@ const apiTypeToGraphQLType = (objType) => {
     }
 };
 
-export { apiTypeToGraphQLType };
+export { apiToGetDataFromTyepAndID, apiToGetGraphQLObjectType };

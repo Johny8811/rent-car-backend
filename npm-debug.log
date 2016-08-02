@@ -10,7 +10,7 @@
 6 silly lifecycle graphql-backend@1.0.0~prestart: no script for prestart, continuing
 7 info lifecycle graphql-backend@1.0.0~start: graphql-backend@1.0.0
 8 verbose lifecycle graphql-backend@1.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle graphql-backend@1.0.0~start: PATH: C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;C:\Users\Jan\Dropbox\Programovanie\JavaScript\Projects\rent a car\rent-a-car-backend\node_modules\.bin;C:\Program Files\nodejs;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Users\Jan\AppData\Local\.meteor\;C:\Program Files\MongoDB\Server\3.0\bin;C:\Program Files\nodejs;C:\Program Files\PostgreSQL\9.6\bin;C:\Users\Jan\AppData\Roaming\npm;.;;.;
+9 verbose lifecycle graphql-backend@1.0.0~start: PATH: C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;C:\Users\Jan\Dropbox\Programovanie\JavaScript\Projects\rent a car\rent-a-car-backend\node_modules\.bin;C:\Program Files\nodejs;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Users\Jan\AppData\Local\.meteor\;C:\Program Files\MongoDB\Server\3.0\bin;C:\Program Files\nodejs;C:\Program Files\PostgreSQL\9.6\bin;C:\Users\Jan\AppData\Roaming\npm;.;;.;;.;
 10 verbose lifecycle graphql-backend@1.0.0~start: CWD: C:\Users\Jan\Dropbox\Programovanie\JavaScript\Projects\rent a car\rent-a-car-backend
 11 silly lifecycle graphql-backend@1.0.0~start: Args: [ '/d /s /c', 'babel-node server.js' ]
 12 silly lifecycle graphql-backend@1.0.0~start: Returned: code: 1  signal: null

@@ -17,6 +17,7 @@ const contractorType = new GraphQLObjectType({
     description: "Contractor of car",
     fields: {
         id: globalIdField('contractorType'),
+        mark: { type: GraphQLString },
         contractor: { type: GraphQLString }
     },
     interfaces:  [nodeInterface]

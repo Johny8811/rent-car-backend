@@ -13,9 +13,9 @@ import viewerType from './types/viewerType';
 import { nodeField } from './nodeDefinitions';
 
 // Mutation
-import addCarMutation from './mutations/addCarMutation';
-import addBikeMutation from './mutations/addBikeMutation';
-import addContractorMutation from './mutations/addContractorMutation';
+import { addBikeMutation, editBikeMutation } from './mutations/BikeMutation';
+import { addCarMutation, editCarMutation } from './mutations/CarMutation';
+import { addContractorMutation, editContractorMutation } from './mutations/ContractorMutation';
 
 const Query = new GraphQLObjectType({
     name: 'RootQueryType',
@@ -33,9 +33,12 @@ const Query = new GraphQLObjectType({
 const Mutation = new GraphQLObjectType({
     name: 'RootMutation',
     fields: {
-        addCar: addCarMutation,
         addBike: addBikeMutation,
-        addContractors: addContractorMutation
+        addCar: addCarMutation,
+        addContractor: addContractorMutation,
+        editBike: editBikeMutation,
+        editCar: editCarMutation,
+        editContractor: editContractorMutation
     }
 });
 

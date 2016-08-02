@@ -7,7 +7,10 @@ import {
 } from 'graphql';
 
 import {
-    globalIdField
+    globalIdField,
+    connectionArgs,
+    //connectionFromArray,
+    connectionFromPromisedArray
 } from 'graphql-relay';
 
 import { nodeInterface } from '../nodeDefinitions';
@@ -16,16 +19,10 @@ import bikeType from './bikeType';
 import carType from './carType';
 
 import {
-    contractorConnection,
-    connectionArgs,
-    connectionFromArray
+    contractorConnection
 } from './connections/contractorConnection';
 
-// --------------------------- zmena zdroju z natvrdo napisanych dat na databazu
-import cars from "../cars";
-import bikes from "../bikes";
-import contractors from '../contractors';
-// ---------------------------
+import Data from '../source/syncModels';
 
 const viewerType = new GraphQLObjectType({
     name: 'ViewerType',
@@ -35,19 +32,21 @@ const viewerType = new GraphQLObjectType({
         cars: {
             type: new GraphQLList(carType),
             description: "Cars List",
-            resolve: () => cars
+            resolve: () => Data.models.car.findAll()
         },
         bikes: {
             type: new GraphQLList(bikeType),
             description: "Bike List",
-            resolve: () => bikes
+            resolve: () => {
+                return Data.models.bike.findAll();
+            }
         },
         allContractors: {
             type: contractorConnection,
             description: "All contractors of cars",
             args: connectionArgs,
-            resolve: (root, args) => connectionFromArray(
-                contractors,
+            resolve: (root, args) => connectionFromPromisedArray(
+                Data.models.contractor.findAll(),
                 args
             )
         }
