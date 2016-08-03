@@ -5,7 +5,7 @@ import {
     fromGlobalId
 } from 'graphql-relay';
 
-import Data from './source/syncModels';
+import models from '../source/models';
 
 const apiToGetDataFromTyepAndID = (globalId) => {
     const { type, id } = fromGlobalId(globalId);
@@ -13,11 +13,11 @@ const apiToGetDataFromTyepAndID = (globalId) => {
         case 'viewerType':
             return { type: 'viewer' };
         case 'carType':
-            return Data.models.car.findById(id);
+            return models.car.findById(id);
         case 'bikeType':
-            return Data.models.bike.findById(id);
-        case 'contractorType':
-            return Data.models.contractor.findById(id);
+            return models.bike.findById(id);
+        case 'distributorType':
+            return models.distributor.findById(id);
     }
 };
 
@@ -25,7 +25,7 @@ const apiToGetGraphQLObjectType = (objType) => {
     const {
         bikeType,
         carType,
-        contractorType,
+        distributorType,
         viewerType
     } = require('./types');
 
@@ -37,7 +37,7 @@ const apiToGetGraphQLObjectType = (objType) => {
         case 'auto':
             return carType.default;
         case 'dodavatel':
-            return contractorType.default;
+            return distributorType.default;
     }
 };
 

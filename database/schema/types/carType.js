@@ -4,14 +4,15 @@
 import {
     GraphQLObjectType,
     GraphQLString,
-    GraphQLList
+    GraphQLList,
+    GraphQLInt
 } from 'graphql';
 
 import {
     globalIdField
 } from 'graphql-relay';
 
-import contractorType from './contractorType';
+import distributorType from './distributorType';
 
 import { nodeInterface } from '../nodeDefinitions';
 
@@ -20,16 +21,17 @@ const carType = new GraphQLObjectType({
     description: "Car",
     fields: () => ({
         id: globalIdField('carType'),
-        contractor: {
-            name: "Contractor",
+        distributor: {
+            name: "Distributor",
             description: "Dodavatelia auta",
-            type: new GraphQLList(contractorType),
+            type: new GraphQLList(distributorType),
             resolve: (root) => {
-                return root.getContractors();
+                return root.getDistributors();
             }
         },
-        mark: { type: GraphQLString },
-        power: { type: GraphQLString }
+        brand: { type: GraphQLString },
+        power: { type: GraphQLString },
+        carCode: { type: GraphQLInt }
     }),
     interfaces:  [nodeInterface]
 });

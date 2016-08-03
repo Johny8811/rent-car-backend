@@ -9,7 +9,6 @@ import {
 import {
     globalIdField,
     connectionArgs,
-    //connectionFromArray,
     connectionFromPromisedArray
 } from 'graphql-relay';
 
@@ -19,10 +18,10 @@ import bikeType from './bikeType';
 import carType from './carType';
 
 import {
-    contractorConnection
-} from './connections/contractorConnection';
+    distributorConnection
+} from './connections/distributorConnection';
 
-import Data from '../source/syncModels';
+import models from '../../source/models';
 
 const viewerType = new GraphQLObjectType({
     name: 'ViewerType',
@@ -32,21 +31,22 @@ const viewerType = new GraphQLObjectType({
         cars: {
             type: new GraphQLList(carType),
             description: "Cars List",
-            resolve: () => Data.models.car.findAll()
+            resolve: () => models.car.findAll()
         },
         bikes: {
             type: new GraphQLList(bikeType),
             description: "Bike List",
             resolve: () => {
-                return Data.models.bike.findAll();
+                //return Data.models.bike.findAll();
+                return models.bike.findAll();
             }
         },
-        allContractors: {
-            type: contractorConnection,
-            description: "All contractors of cars",
+        allDistributors: {
+            type: distributorConnection,
+            description: "All distributors of cars",
             args: connectionArgs,
             resolve: (root, args) => connectionFromPromisedArray(
-                Data.models.contractor.findAll(),
+                models.distributor.findAll(),
                 args
             )
         }

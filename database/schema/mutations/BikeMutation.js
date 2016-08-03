@@ -15,13 +15,13 @@ import {
 
 import bikeType from '../types/bikeType';
 
-import Data from '../source/syncModels';
+import models from '../../source/models';
 
 const addBikeMutation = mutationWithClientMutationId({
     name: "AddBike",
     inputFields: {
         brand: { type: new GraphQLNonNull(GraphQLString)},
-        objem: { type: new GraphQLNonNull(GraphQLInt)},
+        volume: { type: new GraphQLNonNull(GraphQLInt)},
         maxSpeed: { type: new GraphQLNonNull(GraphQLString)}
     },
     outputFields: {
@@ -32,10 +32,10 @@ const addBikeMutation = mutationWithClientMutationId({
             }
         }
     },
-    mutateAndGetPayload({ brand, objem, maxSpeed}) {
-        return Data.models.bike.create({
+    mutateAndGetPayload({ brand, volume, maxSpeed}) {
+        return models.bike.create({
             brand: brand,
-            objem: objem,
+            volume: volume,
             maxSpeed: maxSpeed
         });
     }
@@ -46,7 +46,7 @@ const editBikeMutation = mutationWithClientMutationId({
     inputFields: {
         id: { type: new GraphQLNonNull(GraphQLString)},
         brand: { type: GraphQLString},
-        objem: { type: GraphQLInt},
+        volume: { type: GraphQLInt},
         maxSpeed: { type: GraphQLString}
     },
     outputFields: {
@@ -57,10 +57,10 @@ const editBikeMutation = mutationWithClientMutationId({
             }
         }
     },
-    mutateAndGetPayload({id, brand, objem, maxSpeed}) {
-        return Data.models.bike.update({
+    mutateAndGetPayload({id, brand, volume, maxSpeed}) {
+        return models.bike.update({
             brand: brand,
-            objem: objem,
+            volume: volume,
             maxSpeed: maxSpeed
         },
         {
@@ -73,4 +73,29 @@ const editBikeMutation = mutationWithClientMutationId({
     }
 });
 
-export { addBikeMutation, editBikeMutation };
+const deleteBikeMutation = mutationWithClientMutationId({
+    name: "DeleteBike",
+    inputFields: {
+        id: { type: new GraphQLNonNull(GraphQLString)}
+    },
+    outputFields: {
+        deleteBike: {
+            type: GraphQLString,
+            resolve: (payload) => {
+                return `Object with ID ${payload.id} was deleted`;
+            }
+        }
+    },
+    mutateAndGetPayload({id}) {
+        models.bike.destroy(
+        {
+            where:
+            {
+                id: id
+            }
+        });
+        return {id};
+    }
+});
+
+export { addBikeMutation, editBikeMutation, deleteBikeMutation };

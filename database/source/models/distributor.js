@@ -1,28 +1,22 @@
 /**
- * Created by Jan on 30.7.2016.
+ * Created by Jan on 31.7.2016.
  */
 export default function(sequelize, dt) {
-    var model = sequelize.define("car", {
+    var model = sequelize.define('distributor', {
         type:{
             type: new dt.VIRTUAL(dt.STRING),
             get() {
-                return 'auto';
+                return 'dodavatel';
             }
         },
         brand: {
             type: dt.STRING
         },
-        power: {
+        distributor: {
             type: dt.STRING
         },
         carCode: {
             type: dt.INTEGER
-        }
-    }, {
-        classMethods: {
-            associate(models) {
-                model.hasMany(models.distributor, { foreignKey: 'carCode' })
-            }
         }
     });
     return model;

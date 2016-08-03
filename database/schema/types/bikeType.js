@@ -19,7 +19,7 @@ const bikeType = new GraphQLObjectType({
     fields: {
         id: globalIdField('bikeType'),
         brand: { type: GraphQLString },
-        objem: { type: GraphQLInt },
+        volume: { type: GraphQLInt },
         maxSpeed: { type: GraphQLString }
     },
     interfaces:  [nodeInterface]
