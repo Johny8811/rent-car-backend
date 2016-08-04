@@ -15,7 +15,7 @@ import { nodeField } from './nodeDefinitions';
 // Mutation
 import { addBikeMutation, editBikeMutation, deleteBikeMutation } from './mutations/BikeMutation';
 import { addCarMutation, editCarMutation, deleteCarMutation } from './mutations/CarMutation';
-import { addDistributorMutation, editDistributorMutation } from './mutations/DistributorMutation';
+import { addDistributorMutation, editDistributorMutation, deleteDistributorMutation } from './mutations/DistributorMutation';
 
 const Query = new GraphQLObjectType({
     name: 'RootQueryType',
@@ -40,7 +40,8 @@ const Mutation = new GraphQLObjectType({
         editCar: editCarMutation,
         editDistributor: editDistributorMutation,
         deleteBike: deleteBikeMutation,
-        deleteCar: deleteCarMutation
+        deleteCar: deleteCarMutation,
+        deleteDistributor: deleteDistributorMutation
     }
 });
 

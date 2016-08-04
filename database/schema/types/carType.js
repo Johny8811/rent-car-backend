@@ -16,11 +16,19 @@ import distributorType from './distributorType';
 
 import { nodeInterface } from '../nodeDefinitions';
 
+import { attributeFields } from 'graphql-sequelize';
+
+import models from '../../source/models';
+
 const carType = new GraphQLObjectType({
     name: "CarType",
     description: "Car",
     fields: () => ({
-        id: globalIdField('carType'),
+        ...attributeFields(models.car, {
+            only: ['id', 'brand', 'power', 'carCode'],
+            globalId: true,
+            allowNull: true
+        }),
         distributor: {
             name: "Distributor",
             description: "Dodavatelia auta",
@@ -28,10 +36,7 @@ const carType = new GraphQLObjectType({
             resolve: (root) => {
                 return root.getDistributors();
             }
-        },
-        brand: { type: GraphQLString },
-        power: { type: GraphQLString },
-        carCode: { type: GraphQLInt }
+        }
     }),
     interfaces:  [nodeInterface]
 });

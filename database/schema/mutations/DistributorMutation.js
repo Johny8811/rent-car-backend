@@ -71,4 +71,29 @@ const editDistributorMutation = mutationWithClientMutationId({
     }
 });
 
-export { addDistributorMutation, editDistributorMutation };
+const deleteDistributorMutation = mutationWithClientMutationId({
+    name: "DeleteDistributor",
+    inputFields: {
+        id: { type: new GraphQLNonNull(GraphQLString)}
+    },
+    outputFields: {
+        deleteDistributor: {
+            type: GraphQLString,
+            resolve: (payload) => {
+                return `Object with ID ${payload.id} was deleted`;
+            }
+        }
+    },
+    mutateAndGetPayload({id}) {
+        models.distributor.destroy(
+            {
+                where:
+                {
+                    id: id
+                }
+            });
+        return {id};
+    }
+});
+
+export { addDistributorMutation, editDistributorMutation, deleteDistributorMutation };

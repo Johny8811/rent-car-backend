@@ -27,7 +27,7 @@ const viewerType = new GraphQLObjectType({
     name: 'ViewerType',
     description: "Root field for Relay",
     fields: {
-        id: globalIdField('viewerType'),
+        id: globalIdField('viewer'),
         cars: {
             type: new GraphQLList(carType),
             description: "Cars List",

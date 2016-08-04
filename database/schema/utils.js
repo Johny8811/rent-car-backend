@@ -10,13 +10,13 @@ import models from '../source/models';
 const apiToGetDataFromTyepAndID = (globalId) => {
     const { type, id } = fromGlobalId(globalId);
     switch (type) {
-        case 'viewerType':
+        case 'viewer':
             return { type: 'viewer' };
-        case 'carType':
+        case 'car':
             return models.car.findById(id);
-        case 'bikeType':
+        case 'bike':
             return models.bike.findById(id);
-        case 'distributorType':
+        case 'distributor':
             return models.distributor.findById(id);
     }
 };

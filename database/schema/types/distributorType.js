@@ -13,15 +13,17 @@ import {
 
 import { nodeInterface } from '../nodeDefinitions';
 
+import { attributeFields } from 'graphql-sequelize';
+
+import models from '../../source/models';
+
 const distributorType = new GraphQLObjectType({
     name: "DistributorType",
     description: "Distributor of car",
-    fields: {
-        id: globalIdField('distributorType'),
-        brand: { type: GraphQLString },
-        distributor: { type: GraphQLString },
-        carCode: { type: GraphQLInt }
-    },
+    fields: attributeFields(models.distributor, {
+        only: ['id', 'brand', 'distributor', 'carCode'],
+        globalId: true
+    }),
     interfaces:  [nodeInterface]
 });
 

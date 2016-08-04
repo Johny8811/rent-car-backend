@@ -13,15 +13,18 @@ import {
 
 import { nodeInterface } from '../nodeDefinitions';
 
+import { attributeFields } from 'graphql-sequelize';
+
+import models from '../../source/models';
+
 const bikeType = new GraphQLObjectType({
     name: "BikeType",
     description: "Bike",
-    fields: {
-        id: globalIdField('bikeType'),
-        brand: { type: GraphQLString },
-        volume: { type: GraphQLInt },
-        maxSpeed: { type: GraphQLString }
-    },
+    fields: attributeFields(models.bike, {
+        only: ['id', 'brand', 'volume', 'maxSpeed'],
+        globalId: true,
+        allowNull: true
+    }),
     interfaces:  [nodeInterface]
 });
 
