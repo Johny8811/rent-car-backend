@@ -1,6 +1,8 @@
 ## Pozicovna Aut 
 
+
 Jednoducha starter aplikacia s rootami, s prihlasenim uzivatela a s admin rozhranim. 
+
 
 Pred spustenim servra je treba najskor nastavit databazu. Zatial backend bezi len na locale. 
 Nastavenie databazy je v subore ` database/source/config/config.json. `
