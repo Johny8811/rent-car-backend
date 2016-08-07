@@ -3,7 +3,7 @@
  */
 export default function(sequelize, dt) {
     var model = sequelize.define('distributor', {
-        type:{
+        type: {
             type: new dt.VIRTUAL(dt.STRING),
             get() {
                 return 'dodavatel';

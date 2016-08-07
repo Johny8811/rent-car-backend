@@ -12,6 +12,7 @@ sequelize.sync({ force: true }).then(() => {
 }).then(() => {
     return car.bulkCreate([
         { brand: "Audi", power: "450", carCode: 1 },
+        //{ brand: "Audiii", power: "150", carCode: 1 },
         { brand: "BMW", power: "300", carCode: 2 },
         { brand: "Mercedes", power: "610", carCode: 3 }
     ])
@@ -23,4 +24,3 @@ sequelize.sync({ force: true }).then(() => {
         { brand: "Mercedes", distributor: "Paul Kurl, Mercedes-Banz Company", carCode: 3 }
     ])
 });
-
