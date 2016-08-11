@@ -27,9 +27,7 @@ const carType = new GraphQLObjectType({
       name: 'Distributor',
       description: 'Dodavatelia auta',
       type: new GraphQLList(distributorType),
-      resolve: (root) => {
-        return root.getDistributors();
-      }
+      resolve: (root) => root.getDistributors()
     }
   }),
   interfaces: [nodeInterface]

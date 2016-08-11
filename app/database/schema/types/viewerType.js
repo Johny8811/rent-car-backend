@@ -34,10 +34,7 @@ const viewerType = new GraphQLObjectType({
     bikes: {
       type: new GraphQLList(bikeType),
       description: 'Bike List',
-      resolve: () => {
-                // return Data.models.bike.findAll();
-        return models.bike.findAll();
-      }
+      resolve: () => models.bike.findAll()
     },
     allDistributors: {
       type: distributorConnection,

@@ -30,5 +30,5 @@ app.use('/kkt', (req, res) => {
 });
 
 app.listen(process.env.GRAPHQL_PORT, () => {
-  console.log(`Server listen on port ${process.env.GRAPHQL_PORT}`);
+  console.log(`Server listen onn port ${process.env.GRAPHQL_PORT}`);
 });

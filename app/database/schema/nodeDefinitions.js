@@ -8,12 +8,8 @@ import {
 import { apiToGetDataFromTyepAndID, apiToGetGraphQLObjectType } from './utils';
 
 const { nodeField, nodeInterface } = nodeDefinitions(
-    (globalId) => {
-      return apiToGetDataFromTyepAndID(globalId);
-    },
-    (obj) => {
-      return apiToGetGraphQLObjectType(obj.type);
-    }
+    (globalId) => apiToGetDataFromTyepAndID(globalId),
+    (obj) => apiToGetGraphQLObjectType(obj.type)
 );
 
 export { nodeField, nodeInterface };

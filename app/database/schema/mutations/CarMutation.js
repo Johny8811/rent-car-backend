@@ -25,9 +25,7 @@ const addCarMutation = mutationWithClientMutationId({
   outputFields: {
     car: {
       type: carType,
-      resolve: (payload) => {
-        return payload;
-      }
+      resolve: (payload) => payload
     }
   },
   mutateAndGetPayload({ brand, power, carCode }) {
@@ -49,9 +47,7 @@ const editCarMutation = mutationWithClientMutationId({
   outputFields: {
     car: {
       type: carType,
-      resolve: (payload) => {
-        return payload[1][0];
-      }
+      resolve: (payload) => payload[1][0]
     }
   },
   mutateAndGetPayload({ id, brand, power }) {
@@ -77,9 +73,7 @@ const deleteCarMutation = mutationWithClientMutationId({
   outputFields: {
     deleteCar: {
       type: GraphQLString,
-      resolve: (payload) => {
-        return `Object with ID ${payload.id} was deleted`;
-      }
+      resolve: (payload) => `Object with ID ${payload.id} was deleted`
     }
   },
   mutateAndGetPayload({ id }) {

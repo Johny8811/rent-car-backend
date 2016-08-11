@@ -25,9 +25,7 @@ const addBikeMutation = mutationWithClientMutationId({
   outputFields: {
     bike: {
       type: bikeType,
-      resolve: (payload) => ({
-        payload
-      })
+      resolve: (payload) => payload
     }
   },
   mutateAndGetPayload({ brand, volume, maxSpeed }) {
@@ -50,9 +48,7 @@ const editBikeMutation = mutationWithClientMutationId({
   outputFields: {
     bike: {
       type: bikeType,
-      resolve: (payload) => {
-        return payload[1][0];
-      }
+      resolve: (payload) => payload[1][0]
     }
   },
   mutateAndGetPayload({ id, brand, volume, maxSpeed }) {
@@ -79,9 +75,7 @@ const deleteBikeMutation = mutationWithClientMutationId({
   outputFields: {
     deleteBike: {
       type: GraphQLString,
-      resolve: (payload) => {
-        return `Object with ID ${payload.id} was deleted`;
-      }
+      resolve: (payload) => `Object with ID ${payload.id} was deleted`
     }
   },
   mutateAndGetPayload({ id }) {
