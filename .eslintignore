@@ -1,0 +1,3 @@
+node_modules/
+src/seeders
+src/migrations
