@@ -2,16 +2,18 @@
  * Created by Jan on 27.7.2016.
  */
 import {
-    GraphQLString,
-    GraphQLNonNull,
-    GraphQLInt
+  GraphQLString,
+  GraphQLNonNull,
+  GraphQLInt
 } from 'graphql';
 
 import {
-    mutationWithClientMutationId
+  mutationWithClientMutationId,
+  offsetToCursor
 } from 'graphql-relay';
 
 import bikeType from '../types/bikeType';
+import { GraphQLBikeEdge } from '../types/connections/bikeConnection';
 
 import models from '../../source/models';
 
@@ -23,9 +25,16 @@ const addBikeMutation = mutationWithClientMutationId({
     maxSpeed: { type: new GraphQLNonNull(GraphQLString) }
   },
   outputFields: {
-    bike: {
-      type: bikeType,
-      resolve: (payload) => payload
+    bikeEdge: {
+      type: GraphQLBikeEdge,
+      resolve: (payload) => ({
+        // funkcia cursorForObjectInConnection bolanahradena offsetToCursor
+        // issue: https://github.com/graphql/graphql-relay-js/issues/29
+        // treba pozret ako funguje cursorForObjectInConnection a hned
+        // je jasne kde nastava problem, objekty sa nezhoduju
+        cursor: offsetToCursor(payload.dataValues.id - 1),
+        node: payload
+      })
     }
   },
   mutateAndGetPayload({ brand, volume, maxSpeed }) {

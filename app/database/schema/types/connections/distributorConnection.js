@@ -7,7 +7,9 @@ import {
 
 import distributorType from '../distributorType';
 
-const { connectionType: distributorConnection } =
-    connectionDefinitions({ name: 'Distributors', nodeType: distributorType });
+const {
+  connectionType: distributorConnection,
+  edgeType: GraphQLDistributorsEdge
+} = connectionDefinitions({ name: 'Distributors', nodeType: distributorType });
 
-export default distributorConnection;
+export { distributorConnection, GraphQLDistributorsEdge };

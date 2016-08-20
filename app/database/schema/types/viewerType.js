@@ -3,7 +3,6 @@
  */
 import {
     GraphQLObjectType,
-    GraphQLList,
 } from 'graphql';
 
 import {
@@ -14,10 +13,9 @@ import {
 
 import { nodeInterface } from '../nodeDefinitions';
 
-import bikeType from './bikeType';
-import carType from './carType';
-
-import distributorConnection from './connections/distributorConnection';
+import { bikeConnection } from './connections/bikeConnection';
+import { carConnection } from './connections/carConnection';
+import { distributorConnection } from './connections/distributorConnection';
 
 import models from '../../source/models';
 
@@ -27,23 +25,31 @@ const viewerType = new GraphQLObjectType({
   fields: {
     id: globalIdField('viewer'),
     cars: {
-      type: new GraphQLList(carType),
+      type: carConnection,
       description: 'Cars List',
-      resolve: () => models.car.findAll()
+      args: connectionArgs,
+      resolve: (root, args) => connectionFromPromisedArray(
+        models.car.findAll(),
+        args
+      )
     },
     bikes: {
-      type: new GraphQLList(bikeType),
+      type: bikeConnection,
       description: 'Bike List',
-      resolve: () => models.bike.findAll()
+      args: connectionArgs,
+      resolve: (root, args) => connectionFromPromisedArray(
+        models.bike.findAll(),
+        args
+      )
     },
     allDistributors: {
       type: distributorConnection,
       description: 'All distributors of cars',
       args: connectionArgs,
       resolve: (root, args) => connectionFromPromisedArray(
-                models.distributor.findAll(),
-                args
-            )
+        models.distributor.findAll(),
+        args
+      )
     }
   },
   interfaces: [nodeInterface]

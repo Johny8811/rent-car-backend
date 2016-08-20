@@ -2,16 +2,18 @@
  * Created by Jan on 27.7.2016.
  */
 import {
-    GraphQLString,
-    GraphQLNonNull,
-    GraphQLInt
+  GraphQLString,
+  GraphQLNonNull,
+  GraphQLInt
 } from 'graphql';
 
 import {
-    mutationWithClientMutationId
+  mutationWithClientMutationId,
+  offsetToCursor
 } from 'graphql-relay';
 
 import carType from '../types/carType';
+import { GraphQLCarEdge } from '../types/connections/carConnection';
 
 import models from '../../source/models';
 
@@ -23,9 +25,16 @@ const addCarMutation = mutationWithClientMutationId({
     carCode: { type: new GraphQLNonNull(GraphQLInt) }
   },
   outputFields: {
-    car: {
-      type: carType,
-      resolve: (payload) => payload
+    carEdge: {
+      type: GraphQLCarEdge,
+      resolve: (payload) => ({
+        // funkcia cursorForObjectInConnection bolanahradena offsetToCursor
+        // issue: https://github.com/graphql/graphql-relay-js/issues/29
+        // treba pozret ako funguje cursorForObjectInConnection a hned
+        // je jasne kde nastava problem, objekty sa nezhoduju
+        cursor: offsetToCursor(payload.dataValues.id - 1),
+        node: payload
+      })
     }
   },
   mutateAndGetPayload({ brand, power, carCode }) {

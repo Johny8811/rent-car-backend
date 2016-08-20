@@ -26,11 +26,11 @@ const apiToGetDataFromTyepAndID = (globalId) => {
 
 const apiToGetGraphQLObjectType = (objType) => {
   const {
-        bikeType,
-        carType,
-        distributorType,
-        viewerType
-    } = require('./types/index');
+    bikeType,
+    carType,
+    distributorType,
+    viewerType
+  } = require('./types/index');
 
   switch (objType) {
     case 'viewer':

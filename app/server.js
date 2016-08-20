@@ -12,22 +12,17 @@ const app = express();
 
 app.use(cors());
 
-app.use('/graphql', graphqlHTTP((req, res) => {
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  return {
+app.use('/graphql', graphqlHTTP(({ nieco, daco }) =>
+  ({
     schema,
     context: {
       something: 'something' // je tu kvoli polu 'viewer', toto pole musi nieco vratit
     },                        // inak by vratilo null pre vsetky svoje dalsie polia
-    graphiql: true
-  };
-}));
+    graphiql: true,
+    rootValue: { nieco, daco }
+  })
+));
 
-app.use('/kkt', (req, res) => {
-  res.send('hello kokot');
-});
 
 app.listen(process.env.GRAPHQL_PORT, () => {
   console.log(`Server listen onn port ${process.env.GRAPHQL_PORT}`);
