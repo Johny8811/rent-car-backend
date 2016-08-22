@@ -14,6 +14,7 @@ import {
 
 import carType from '../types/carType';
 import { GraphQLCarEdge } from '../types/connections/carConnection';
+import viewerType from '../types/viewerType';
 
 import models from '../../source/models';
 
@@ -27,14 +28,22 @@ const addCarMutation = mutationWithClientMutationId({
   outputFields: {
     carEdge: {
       type: GraphQLCarEdge,
-      resolve: (payload) => ({
-        // funkcia cursorForObjectInConnection bolanahradena offsetToCursor
-        // issue: https://github.com/graphql/graphql-relay-js/issues/29
-        // treba pozret ako funguje cursorForObjectInConnection a hned
-        // je jasne kde nastava problem, objekty sa nezhoduju
-        cursor: offsetToCursor(payload.dataValues.id - 1),
-        node: payload
-      })
+      resolve: (payload) => {
+        return models.car.findAll().then(cars => ({
+          // funkcia cursorForObjectInConnection bolanahradena offsetToCursor
+          // issue: https://github.com/graphql/graphql-relay-js/issues/29
+          // treba pozret ako funguje cursorForObjectInConnection a hned
+          // je jasne kde nastava problem, objekty sa nezhoduju
+          cursor: offsetToCursor(cars.length -1),
+          node: payload
+        }));
+      }
+    },
+    viewer: {
+      type: viewerType,
+      resolve(root, args, context) {
+        return context;
+      }
     }
   },
   mutateAndGetPayload({ brand, power, carCode }) {

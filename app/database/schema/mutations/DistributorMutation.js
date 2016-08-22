@@ -14,6 +14,7 @@ import {
 
 import distributorType from '../types/distributorType';
 import { GraphQLDistributorsEdge } from '../types/connections/distributorConnection';
+import viewerType from '../types/viewerType';
 
 import models from '../../source/models';
 
@@ -27,14 +28,22 @@ const addDistributorMutation = mutationWithClientMutationId({
   outputFields: {
     distributorEdge: {
       type: GraphQLDistributorsEdge,
-      resolve: (payload) => ({
-        // funkcia cursorForObjectInConnection bolanahradena offsetToCursor
-        // issue: https://github.com/graphql/graphql-relay-js/issues/29
-        // treba pozret ako funguje cursorForObjectInConnection a hned
-        // je jasne kde nastava problem, objekty sa nezhoduju
-        cursor: offsetToCursor(payload.dataValues.id - 1),
-        node: payload
-      })
+      resolve: (payload) => {
+        return models.distributor.findAll().then(distributors => ({
+          // funkcia cursorForObjectInConnection bolanahradena offsetToCursor
+          // issue: https://github.com/graphql/graphql-relay-js/issues/29
+          // treba pozret ako funguje cursorForObjectInConnection a hned
+          // je jasne kde nastava problem, objekty sa nezhoduju
+          cursor: offsetToCursor(distributors.length -1),
+          node: payload
+        }));
+      }
+    },
+    viewer: {
+      type: viewerType,
+      resolve(root, args, context) {
+        return context;
+      }
     }
   },
   mutateAndGetPayload({ brand, distributor, carCode }) {

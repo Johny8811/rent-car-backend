@@ -14,6 +14,7 @@ import {
 
 import bikeType from '../types/bikeType';
 import { GraphQLBikeEdge } from '../types/connections/bikeConnection';
+import viewerType from '../types/viewerType';
 
 import models from '../../source/models';
 
@@ -27,14 +28,22 @@ const addBikeMutation = mutationWithClientMutationId({
   outputFields: {
     bikeEdge: {
       type: GraphQLBikeEdge,
-      resolve: (payload) => ({
-        // funkcia cursorForObjectInConnection bolanahradena offsetToCursor
-        // issue: https://github.com/graphql/graphql-relay-js/issues/29
-        // treba pozret ako funguje cursorForObjectInConnection a hned
-        // je jasne kde nastava problem, objekty sa nezhoduju
-        cursor: offsetToCursor(payload.dataValues.id - 1),
-        node: payload
-      })
+      resolve: (payload) => {
+        return models.bike.findAll().then(bikes => ({
+          // funkcia cursorForObjectInConnection bolanahradena offsetToCursor
+          // issue: https://github.com/graphql/graphql-relay-js/issues/29
+          // treba pozret ako funguje cursorForObjectInConnection a hned
+          // je jasne kde nastava problem, objekty sa nezhoduju
+          cursor: offsetToCursor(bikes.length -1),
+          node: payload
+        }));
+      }
+    },
+    viewer: {
+      type: viewerType,
+      resolve(root, args, context) {
+        return context;
+      }
     }
   },
   mutateAndGetPayload({ brand, volume, maxSpeed }) {
