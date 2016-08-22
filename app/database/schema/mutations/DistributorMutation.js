@@ -33,7 +33,7 @@ const addDistributorMutation = mutationWithClientMutationId({
           // funkcia cursorForObjectInConnection bolanahradena offsetToCursor
           // issue: https://github.com/graphql/graphql-relay-js/issues/29
           // treba pozret ako funguje cursorForObjectInConnection a hned
-          // je jasne kde nastava problem, objekty sa nezhoduju
+          // je jasne kde nastava problem, objekty sa nezhodujú
           cursor: offsetToCursor(distributors.length -1),
           node: payload
         }));
