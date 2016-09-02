@@ -12,6 +12,8 @@ const apiToGetDataFromTyepAndID = (globalId) => {
   switch (type) {
     case 'viewer':
       return { type: 'viewer' };
+    case 'user':
+      return models.user.findById(id);
     case 'car':
       return models.car.findById(id);
     case 'bike':
@@ -26,15 +28,18 @@ const apiToGetDataFromTyepAndID = (globalId) => {
 
 const apiToGetGraphQLObjectType = (objType) => {
   const {
+    viewerType,
+    userType,
     bikeType,
     carType,
-    distributorType,
-    viewerType
+    distributorType
   } = require('./types/index');
 
   switch (objType) {
     case 'viewer':
       return viewerType.default;
+    case 'uzivatel':
+      return userType.default;
     case 'motorka':
       return bikeType.default;
     case 'auto':

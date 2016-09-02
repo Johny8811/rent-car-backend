@@ -2,7 +2,7 @@
  * Created by Jan on 19.7.2016.
  */
 import {
-    GraphQLObjectType,
+  GraphQLObjectType,
 } from 'graphql';
 
 import { attributeFields } from 'graphql-sequelize';

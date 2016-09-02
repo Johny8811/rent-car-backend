@@ -2,7 +2,8 @@
  * Created by Jan on 24.7.2016.
  */
 import {
-    GraphQLObjectType,
+  GraphQLObjectType,
+  GraphQLString
 } from 'graphql';
 
 import {
@@ -13,6 +14,9 @@ import {
 
 import { nodeInterface } from '../nodeDefinitions';
 
+import loggedInType from './loggedInTypy';
+
+import { userConnection } from './connections/userConnection';
 import { bikeConnection } from './connections/bikeConnection';
 import { carConnection } from './connections/carConnection';
 import { distributorConnection } from './connections/distributorConnection';
@@ -24,6 +28,30 @@ const viewerType = new GraphQLObjectType({
   description: 'Root field for Relay',
   fields: {
     id: globalIdField('viewer'),
+    loggedIn: {
+      type: loggedInType,
+      description: "Logged in user",
+      resolve: (root, args, context, { rootValue: { token } } ) => {
+        console.log(token);
+        if (token) {
+          return models.user.findOne({where: {username: token.username}});
+        } else {
+          return {
+            id: 0
+          }
+        }
+        //return models.user.findOne({where: {username: 'janci'/*token.username*/}});
+      }
+    },
+    users: {
+      type: userConnection,
+      description: "Registered users",
+      args: connectionArgs,
+      resolve: (root, args) => connectionFromPromisedArray(
+        models.user.findAll(),
+        args
+      )
+    },
     cars: {
       type: carConnection,
       description: 'Cars List',
@@ -37,10 +65,11 @@ const viewerType = new GraphQLObjectType({
       type: bikeConnection,
       description: 'Bike List',
       args: connectionArgs,
-      resolve: (root, args) => connectionFromPromisedArray(
+      resolve: (root, args) => {
+        return connectionFromPromisedArray(
         models.bike.findAll(),
         args
-      )
+      )}
     },
     allDistributors: {
       type: distributorConnection,

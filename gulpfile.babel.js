@@ -19,7 +19,7 @@ const config = {
 };
 
 gulp.task('syncModel', 'Synchronize model with database', () => {
-  sequelize.sync();
+  sequelize.sync({ force: true });
 });
 
 gulp.task('start-server', 'Start the app server at port 2020', () => {
