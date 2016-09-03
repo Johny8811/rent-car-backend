@@ -1,8 +1,6 @@
 /**
  * Created by Jan on 27.7.2016.
  */
-import jwt from 'jsonwebtoken';
-
 import {
   GraphQLString,
   GraphQLNonNull
@@ -12,13 +10,15 @@ import {
   mutationWithClientMutationId
 } from 'graphql-relay';
 
-import bcrypt from 'bcrypt-nodejs';
-
-import secret from '../../../../config';
+import jwt from 'jsonwebtoken';
 
 import loggedInType from '../types/loggedInTypy';
 
-import models from '../../source/models';
+import secret from '../../../../config';
+
+import {
+  user
+} from '../../source/models';
 
 const loginMutation = mutationWithClientMutationId({
   name: 'Login',
@@ -34,27 +34,18 @@ const loginMutation = mutationWithClientMutationId({
       }
     }
   },
-  mutateAndGetPayload({ username, password }) {
-    return ( models.user.findOne({ where: { username: username } })
-      .then(user => {
-        if (!user) {
-          throw new Error('Bad user');
-        } else if (!bcrypt.compareSync(password, user.password)) {
-          throw new Error('Passwords don\'t match');
-        } else {
-          const signToken = jwt.sign({
-            email: user.email,
-            username: user.username,
-            role: user.role
-          }, secret, {
-            expiresIn: 6000
-          });
-          user.token = signToken;
-          return user;
-        }
-      })
-    )
-  }
+  mutateAndGetPayload: ({ username, password }) => user.login(username, password)
+    .then(user => {
+      const signToken = jwt.sign({
+        email: user.email,
+        username: user.username,
+        role: user.role
+      }, secret, {
+        expiresIn: '1 day'
+      });
+      user.token = signToken;
+      return user;
+    })
 });
 
 export default loginMutation;

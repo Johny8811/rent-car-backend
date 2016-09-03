@@ -16,7 +16,9 @@ import bikeType from '../types/bikeType';
 import { GraphQLBikeEdge } from '../types/connections/bikeConnection';
 import viewerType from '../types/viewerType';
 
-import models from '../../source/models';
+import {
+  bike
+} from '../../source/models';
 
 const addBikeMutation = mutationWithClientMutationId({
   name: 'AddBike',
@@ -28,16 +30,14 @@ const addBikeMutation = mutationWithClientMutationId({
   outputFields: {
     bikeEdge: {
       type: GraphQLBikeEdge,
-      resolve: (payload) => {
-        return models.bike.findAll().then(bikes => ({
-          // funkcia cursorForObjectInConnection bolanahradena offsetToCursor
-          // issue: https://github.com/graphql/graphql-relay-js/issues/29
-          // treba pozret ako funguje cursorForObjectInConnection a hned
-          // je jasne kde nastava problem, objekty sa nezhodujú
-          cursor: offsetToCursor(bikes.length -1),
-          node: payload
-        }));
-      }
+      resolve: (payload) => bike.findAll().then(bikes => ({
+        // funkcia cursorForObjectInConnection bolanahradena offsetToCursor
+        // issue: https://github.com/graphql/graphql-relay-js/issues/29
+        // treba pozret ako funguje cursorForObjectInConnection a hned
+        // je jasne kde nastava problem, objekty sa nezhodujú
+        cursor: offsetToCursor(bikes.length - 1),
+        node: payload
+      }))
     },
     viewer: {
       type: viewerType,
@@ -47,7 +47,7 @@ const addBikeMutation = mutationWithClientMutationId({
     }
   },
   mutateAndGetPayload({ brand, volume, maxSpeed }) {
-    return models.bike.create({
+    return bike.create({
       brand,
       volume,
       maxSpeed
@@ -70,7 +70,7 @@ const editBikeMutation = mutationWithClientMutationId({
     }
   },
   mutateAndGetPayload({ id, brand, volume, maxSpeed }) {
-    return models.bike.update({
+    return bike.update({
       brand,
       volume,
       maxSpeed
@@ -97,7 +97,7 @@ const deleteBikeMutation = mutationWithClientMutationId({
     }
   },
   mutateAndGetPayload({ id }) {
-    models.bike.destroy(
+    bike.destroy(
       {
         where:
         {

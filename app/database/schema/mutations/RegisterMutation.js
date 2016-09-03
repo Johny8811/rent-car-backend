@@ -13,12 +13,12 @@ import {
 
 import bcrypt from 'bcrypt-nodejs';
 
-import { attributeFields } from 'graphql-sequelize';
-
 import { GraphQLUserEdge } from '../types/connections/userConnection';
 import viewerType from '../types/viewerType';
 
-import models from '../../source/models';
+import {
+  user
+} from '../../source/models';
 
 const registerMutation = mutationWithClientMutationId({
   name: 'Register',
@@ -32,16 +32,14 @@ const registerMutation = mutationWithClientMutationId({
   outputFields: {
     userEdge: {
       type: GraphQLUserEdge,
-      resolve: (payload) => {
-        return models.user.findAll().then(users => ({
-          // funkcia cursorForObjectInConnection bolanahradena offsetToCursor
-          // issue: https://github.com/graphql/graphql-relay-js/issues/29
-          // treba pozret ako funguje cursorForObjectInConnection a hned
-          // je jasne kde nastava problem, objekty sa nezhodujú
-          cursor: offsetToCursor(users.length -1),
-          node: payload
-        }));
-      }
+      resolve: (payload) => user.findAll().then(users => ({
+        // funkcia cursorForObjectInConnection bolanahradena offsetToCursor
+        // issue: https://github.com/graphql/graphql-relay-js/issues/29
+        // treba pozret ako funguje cursorForObjectInConnection a hned
+        // je jasne kde nastava problem, objekty sa nezhodujú
+        cursor: offsetToCursor(users.length - 1),
+        node: payload
+      }))
     },
     viewer: {
       type: viewerType,
@@ -51,8 +49,8 @@ const registerMutation = mutationWithClientMutationId({
     }
   },
   mutateAndGetPayload({ firstname, lastname, username, email, passwordHash }) {
-    let password = bcrypt.hashSync(passwordHash);
-    return models.user.create({
+    const password = bcrypt.hashSync(passwordHash);
+    return user.create({
       firstname,
       lastname,
       username,

@@ -16,7 +16,9 @@ import carType from '../types/carType';
 import { GraphQLCarEdge } from '../types/connections/carConnection';
 import viewerType from '../types/viewerType';
 
-import models from '../../source/models';
+import {
+  car
+} from '../../source/models';
 
 const addCarMutation = mutationWithClientMutationId({
   name: 'AddCar',
@@ -28,16 +30,14 @@ const addCarMutation = mutationWithClientMutationId({
   outputFields: {
     carEdge: {
       type: GraphQLCarEdge,
-      resolve: (payload) => {
-        return models.car.findAll().then(cars => ({
-          // funkcia cursorForObjectInConnection bolanahradena offsetToCursor
-          // issue: https://github.com/graphql/graphql-relay-js/issues/29
-          // treba pozret ako funguje cursorForObjectInConnection a hned
-          // je jasne kde nastava problem, objekty sa nezhodujú
-          cursor: offsetToCursor(cars.length -1),
-          node: payload
-        }));
-      }
+      resolve: (payload) => car.findAll().then(cars => ({
+        // funkcia cursorForObjectInConnection bolanahradena offsetToCursor
+        // issue: https://github.com/graphql/graphql-relay-js/issues/29
+        // treba pozret ako funguje cursorForObjectInConnection a hned
+        // je jasne kde nastava problem, objekty sa nezhodujú
+        cursor: offsetToCursor(cars.length - 1),
+        node: payload
+      }))
     },
     viewer: {
       type: viewerType,
@@ -47,7 +47,7 @@ const addCarMutation = mutationWithClientMutationId({
     }
   },
   mutateAndGetPayload({ brand, power, carCode }) {
-    return models.car.create({
+    return car.create({
       brand,
       power,
       carCode
@@ -69,7 +69,7 @@ const editCarMutation = mutationWithClientMutationId({
     }
   },
   mutateAndGetPayload({ id, brand, power }) {
-    return models.car.update({
+    return car.update({
       brand,
       power
     },
@@ -95,7 +95,7 @@ const deleteCarMutation = mutationWithClientMutationId({
     }
   },
   mutateAndGetPayload({ id }) {
-    models.car.destroy(
+    car.destroy(
       {
         where:
         {

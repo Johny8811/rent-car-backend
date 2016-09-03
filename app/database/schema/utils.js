@@ -5,7 +5,19 @@ import {
     fromGlobalId
 } from 'graphql-relay';
 
-import models from '../source/models';
+import {
+  user,
+  car,
+  bike,
+  distributor
+} from '../source/models';
+
+/**
+ * funkcia na ziskanie dat podla 'type' a 'id'
+ *
+ * @param globalId
+ * @returns {*}
+ */
 
 const apiToGetDataFromTyepAndID = (globalId) => {
   const { type, id } = fromGlobalId(globalId);
@@ -13,18 +25,25 @@ const apiToGetDataFromTyepAndID = (globalId) => {
     case 'viewer':
       return { type: 'viewer' };
     case 'user':
-      return models.user.findById(id);
+      return user.findById(id);
     case 'car':
-      return models.car.findById(id);
+      return car.findById(id);
     case 'bike':
-      return models.bike.findById(id);
+      return bike.findById(id);
     case 'distributor':
-      return models.distributor.findById(id);
+      return distributor.findById(id);
     default: {
       return null;
     }
   }
 };
+
+/**
+ * funkcia na ziskanie GraphQType-u z objektu, ktorý dostala
+ *
+ * @param objType
+ * @returns {*}
+ */
 
 const apiToGetGraphQLObjectType = (objType) => {
   const {

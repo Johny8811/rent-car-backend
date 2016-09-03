@@ -44,12 +44,14 @@
     "sequelize": "^3.23.6"
   },
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "cors": "^2.7.1",
     "express": "^4.14.0",
     "express-graphql": "^0.5.3",
     "graphql": "^0.6.2",
     "graphql-relay": "^0.4.2",
     "graphql-sequelize": "^2.4.0",
+    "jsonwebtoken": "^7.1.9",
     "lodash": "^4.13.1",
     "sequelize": "^3.23.6"
   }

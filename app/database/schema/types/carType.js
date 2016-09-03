@@ -12,13 +12,15 @@ import distributorType from './distributorType';
 
 import { nodeInterface } from '../nodeDefinitions';
 
-import models from '../../source/models';
+import {
+  car
+} from '../../source/models';
 
 const carType = new GraphQLObjectType({
   name: 'CarType',
   description: 'Car',
   fields: () => ({
-    ...attributeFields(models.car, {
+    ...attributeFields(car, {
       only: ['id', 'brand', 'power', 'carCode'],
       globalId: true,
       allowNull: true

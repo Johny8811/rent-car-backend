@@ -2,8 +2,7 @@
  * Created by Jan on 24.7.2016.
  */
 import {
-  GraphQLObjectType,
-  GraphQLString
+  GraphQLObjectType
 } from 'graphql';
 
 import {
@@ -21,7 +20,12 @@ import { bikeConnection } from './connections/bikeConnection';
 import { carConnection } from './connections/carConnection';
 import { distributorConnection } from './connections/distributorConnection';
 
-import models from '../../source/models';
+import {
+  user,
+  car,
+  bike,
+  distributor
+} from '../../source/models';
 
 const viewerType = new GraphQLObjectType({
   name: 'ViewerType',
@@ -30,25 +34,22 @@ const viewerType = new GraphQLObjectType({
     id: globalIdField('viewer'),
     loggedIn: {
       type: loggedInType,
-      description: "Logged in user",
-      resolve: (root, args, context, { rootValue: { token } } ) => {
-        console.log(token);
+      description: 'Logged in user',
+      resolve: (root, args, { token }) => {
         if (token) {
-          return models.user.findOne({where: {username: token.username}});
-        } else {
-          return {
-            id: 0
-          }
+          return user.findOne({ where: { username: token.username } });
         }
-        //return models.user.findOne({where: {username: 'janci'/*token.username*/}});
+        return {
+          id: 0
+        };
       }
     },
     users: {
       type: userConnection,
-      description: "Registered users",
+      description: 'Registered users',
       args: connectionArgs,
       resolve: (root, args) => connectionFromPromisedArray(
-        models.user.findAll(),
+        user.findAll(),
         args
       )
     },
@@ -57,7 +58,7 @@ const viewerType = new GraphQLObjectType({
       description: 'Cars List',
       args: connectionArgs,
       resolve: (root, args) => connectionFromPromisedArray(
-        models.car.findAll(),
+        car.findAll(),
         args
       )
     },
@@ -65,18 +66,17 @@ const viewerType = new GraphQLObjectType({
       type: bikeConnection,
       description: 'Bike List',
       args: connectionArgs,
-      resolve: (root, args) => {
-        return connectionFromPromisedArray(
-        models.bike.findAll(),
+      resolve: (root, args) => connectionFromPromisedArray(
+        bike.findAll(),
         args
-      )}
+      )
     },
     allDistributors: {
       type: distributorConnection,
       description: 'All distributors of cars',
       args: connectionArgs,
       resolve: (root, args) => connectionFromPromisedArray(
-        models.distributor.findAll(),
+        distributor.findAll(),
         args
       )
     }

@@ -4,9 +4,8 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import cors from 'cors';
-import schema from './database/schema/schema';
-
 import jwt from 'jsonwebtoken';
+import schema from './database/schema/schema';
 import secret from '../config';
 
 process.env.GRAPHQL_PORT = 2020;
@@ -18,10 +17,10 @@ app.use(cors());
 function getToken(req, res, next) {
   if (req.headers.token) {
     try {
-      let decode = jwt.verify(req.headers.token, secret);
+      const decode = jwt.verify(req.headers.token, secret);
       req.token = decode;
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
   next();
@@ -30,11 +29,8 @@ function getToken(req, res, next) {
 app.use('/graphql', getToken, graphqlHTTP(({ token }) =>
   ({
     schema,
-    context: {
-      something: 'something' // je tu kvoli polu 'viewer', toto pole musi nieco vratit
-    },                        // inak by vratilo null pre vsetky svoje dalsie polia
-    graphiql: true,
-    rootValue: { token }
+    context: { token },
+    graphiql: true
   })
 ));
 

@@ -9,13 +9,15 @@ import { attributeFields } from 'graphql-sequelize';
 
 import { nodeInterface } from '../nodeDefinitions';
 
-import models from '../../source/models';
+import {
+  user
+} from '../../source/models';
 
 const userType = new GraphQLObjectType({
   name: 'UserType',
-  description: "Users in applications",
-  fields: attributeFields(models.user, {
-    only: ['id', 'firstname', 'lastname', 'username', 'email', 'password', 'role'],
+  description: 'Users in applications',
+  fields: attributeFields(user, {
+    exclude: ['type', 'password', 'createdAt', 'updatedAt'],
     globalId: true,
     allowNull: true
   }),

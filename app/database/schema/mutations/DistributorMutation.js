@@ -16,7 +16,9 @@ import distributorType from '../types/distributorType';
 import { GraphQLDistributorsEdge } from '../types/connections/distributorConnection';
 import viewerType from '../types/viewerType';
 
-import models from '../../source/models';
+import {
+  distributor
+} from '../../source/models';
 
 const addDistributorMutation = mutationWithClientMutationId({
   name: 'AddDistributor',
@@ -28,16 +30,14 @@ const addDistributorMutation = mutationWithClientMutationId({
   outputFields: {
     distributorEdge: {
       type: GraphQLDistributorsEdge,
-      resolve: (payload) => {
-        return models.distributor.findAll().then(distributors => ({
-          // funkcia cursorForObjectInConnection bolanahradena offsetToCursor
-          // issue: https://github.com/graphql/graphql-relay-js/issues/29
-          // treba pozret ako funguje cursorForObjectInConnection a hned
-          // je jasne kde nastava problem, objekty sa nezhodujú
-          cursor: offsetToCursor(distributors.length -1),
-          node: payload
-        }));
-      }
+      resolve: (payload) => distributor.findAll().then(distributors => ({
+        // funkcia cursorForObjectInConnection bolanahradena offsetToCursor
+        // issue: https://github.com/graphql/graphql-relay-js/issues/29
+        // treba pozret ako funguje cursorForObjectInConnection a hned
+        // je jasne kde nastava problem, objekty sa nezhodujú
+        cursor: offsetToCursor(distributors.length - 1),
+        node: payload
+      }))
     },
     viewer: {
       type: viewerType,
@@ -47,7 +47,7 @@ const addDistributorMutation = mutationWithClientMutationId({
     }
   },
   mutateAndGetPayload({ brand, distributor, carCode }) {
-    return models.distributor.create({
+    return distributor.create({
       brand,
       distributor,
       carCode
@@ -69,7 +69,7 @@ const editDistributorMutation = mutationWithClientMutationId({
     }
   },
   mutateAndGetPayload({ id, brand, distributor }) {
-    return models.distributor.update({
+    return distributor.update({
       brand,
       distributor
     },
@@ -95,7 +95,7 @@ const deleteDistributorMutation = mutationWithClientMutationId({
     }
   },
   mutateAndGetPayload({ id }) {
-    models.distributor.destroy(
+    distributor.destroy(
       {
         where:
         {

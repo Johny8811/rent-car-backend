@@ -9,12 +9,14 @@ import { attributeFields } from 'graphql-sequelize';
 
 import { nodeInterface } from '../nodeDefinitions';
 
-import models from '../../source/models';
+import {
+  distributor
+} from '../../source/models';
 
 const distributorType = new GraphQLObjectType({
   name: 'DistributorType',
   description: 'Distributor of car',
-  fields: attributeFields(models.distributor, {
+  fields: attributeFields(distributor, {
     only: ['id', 'brand', 'distributor', 'carCode'],
     globalId: true
   }),

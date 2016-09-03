@@ -38,8 +38,10 @@ const Query = new GraphQLObjectType({
   fields: {
     viewer: {
       type: viewerType,
-      resolve(root, args, context) {
-        return context;
+      resolve() {
+        return {
+          something: 'something'
+        };
       }
     },
     node: nodeField

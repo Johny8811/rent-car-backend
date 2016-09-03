@@ -10,16 +10,18 @@ import { attributeFields } from 'graphql-sequelize';
 
 import { nodeInterface } from '../nodeDefinitions';
 
-import models from '../../source/models';
+import {
+  user
+} from '../../source/models';
 
 const loggedInType = new GraphQLObjectType({
   name: 'LoggedInType',
-  description: "Users in applications",
+  description: 'Users in applications',
   fields: {
-    ...attributeFields(models.user, {
-    only: ['id', 'firstname', 'lastname', 'username', 'email', 'password', 'role'],
-    globalId:true,
-    allowNull:true
+    ...attributeFields(user, {
+      exclude: ['type', 'password', 'createdAt', 'updatedAt'],
+      globalId: true,
+      allowNull: true
     }),
     token: { type: GraphQLString }
   },
