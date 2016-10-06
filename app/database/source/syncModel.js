@@ -14,7 +14,7 @@
 //    { firstname: 'Andre', lastname: 'Majer', username: 'Andrew', email: 'andre.majer@mail.com',
 //    password: password, role: 'publisher' },
 //    { firstname: 'Peter', lastname: 'Kurtz', username: 'Admin', email: 'admin@mail.com',
-//    password: admin, role: 'admin' }
+//    password: password, role: 'admin' }
 //  ]);
 //  })
 //
