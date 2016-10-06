@@ -9,12 +9,12 @@
 //
 //  .then(() => {
 //  return user.bulkCreate([
-//    { firstname: 'Jan', lastname: 'Ban', username: 'janci', email: 'jan@ban.com',
+//    { firstname: 'Jan', lastname: 'Ban', username: 'janci', email: 'jan.ban@mail.com',
 //    password: password, role: 'reader' },
-//    { firstname: 'Semir', lastname: 'Gerkan', username: 'IronMan', email: 'jan@ban.com',
+//    { firstname: 'Andre', lastname: 'Majer', username: 'Andrew', email: 'andre.majer@mail.com',
 //    password: password, role: 'publisher' },
-//    { firstname: 'Majk', lastname: 'Spirit', username: 'Lajk', email: 'majk@spit.com',
-//    password: password, role: 'admin' }
+//    { firstname: 'Peter', lastname: 'Kurtz', username: 'Admin', email: 'admin@mail.com',
+//    password: admin, role: 'admin' }
 //  ]);
 //  })
 //
@@ -29,7 +29,7 @@
 //  .then(() => {
 //  return car.bulkCreate([
 //    { brand: 'Audi', power: '450', carCode: 1 },
-//    // { brand: "Audiii", power: "150", carCode: 1 },
+//    // { brand: "Audi", power: "150", carCode: 1 },
 //    { brand: 'BMW', power: '300', carCode: 2 },
 //    { brand: 'Mercedes', power: '610', carCode: 3 }
 //  ]);
