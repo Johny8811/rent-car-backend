@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken';
 import schema from './database/schema/schema';
 import secret from '../config';
 
-process.env.GRAPHQL_PORT = 2020;
+process.env.GRAPHQL_PORT = 3000;
 
 const app = express();
 
